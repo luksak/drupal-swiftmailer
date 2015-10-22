@@ -75,7 +75,8 @@ class SwiftMailer implements MailInterface {
     // Get default mail line endings and merge all lines in the e-mail body
     // separated by the mail line endings.
     $line_endings = Settings::get('mail_line_endings', PHP_EOL);
-    $message['body'] = preg_replace('@\r?\n@', $line_endings, $message['body']);
+    $message_body = preg_replace('@\r?\n@', $line_endings, $message['body']);
+    $message['body'] = array('data' => array('#markup' => $message_body));
 
     // Get applicable format.
     $applicable_format = $this->getApplicableFormat($message);
